@@ -18,17 +18,17 @@ class _demoState extends State<demo> {
   List<HomeModel> cars = [
     HomeModel(
         name: "Afra",
-        image: AssetImage("assets/img6.jpg"),
+        image: AssetImage("assets/img1.jpg"),
         icon: Icon(Icons.delete),
         subtitle: "I am Afra "),
     HomeModel(
         name: "Aafrin",
-        image: AssetImage("assets/img4.jpg"),
+        image: AssetImage("assets/img2.jpg"),
         icon: Icon(Icons.delete),
         subtitle: "I am Aafrin "),
     HomeModel(
         name: "Rooban",
-        image: AssetImage("assets/img5.jpg"),
+        image: AssetImage("assets/img3.jpg"),
         icon: Icon(Icons.delete),
         subtitle: "I am Rooban"),
   ];

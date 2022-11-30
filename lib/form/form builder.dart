@@ -23,7 +23,8 @@ class _formState extends State<form> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("login"),
+        backgroundColor: Colors.teal,
+        title: Text("Login"),
       ),
       body: Container(
         margin: EdgeInsets.all(20),
@@ -101,12 +102,15 @@ class _formState extends State<form> {
                            username:username!,
                            password:password!,
                            gender:genderselected!,
+                           
  
                         ))
                         
                         );
                   }
-                }), child:Text("Login") )
+                  
+                }),
+                 child:Text("Login"), ),
               ],
             ),
           ),
