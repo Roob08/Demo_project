@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spotify/demo/demo1.dart';
 import 'package:spotify/screen/splash.dart';
 
@@ -29,6 +30,7 @@ class _formState extends State<form> {
   String? choiceChip;
   String? datetime;
   String? DateTimePicker;
+  String? UserPrefs;
 
   @override
   Widget build(BuildContext context) {
@@ -179,14 +181,13 @@ class _formState extends State<form> {
                       .toList(),
                   onChanged: (value) {
                     setState(() {
-                      PhoneNumber = value;
-                      print(PhoneNumber);
+                      Radio = value;
+                      print(Radio);
                     });
                   },
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(
                         errorText: "this field is required"),
-                    FormBuilderValidators.numeric()
                   ]),
                 ),
                 FormBuilderCheckbox(
@@ -237,40 +238,46 @@ class _formState extends State<form> {
                       FilterChip = value.toString();
                       print(FilterChip);
                     });
-                    decoration: InputDecoration(
-                     labelText: "select any option");
+                    decoration:
+                    InputDecoration(labelText: "select any option");
                   },
                 ),
-                FormBuilderChoiceChip(name: "choice chip",
-                selectedColor: Colors.green[200],
-                 options:List.generate(5, (index) => index + 1)
+                FormBuilderChoiceChip(
+                  name: "choice chip",
+                  selectedColor: Colors.green[200],
+                  options: List.generate(5, (index) => index + 1)
                       .map((e) => FormBuilderChipOption(
                             value: e,
                             child: Text(e.toString()),
                           ))
-                      .toList(), ),
-                      FormBuilderDateTimePicker(name: "Date Time",fieldLabelText: "datetime",initialValue: DateTime.now(),firstDate: DateTime(2020,27,09),
-                      lastDate: DateTime.now(), 
-                       ),
-                       FormBuilderDateRangePicker(name: "DateTimePicker", firstDate: DateTime(2022,11,04), lastDate: DateTime(2022,12,31), validator: FormBuilderValidators.compose([
+                      .toList(),
+                ),
+                FormBuilderDateTimePicker(
+                  name: "Date Time",
+                  fieldLabelText: "datetime",
+                  initialValue: DateTime.now(),
+                  firstDate: DateTime(2020, 27, 09),
+                  lastDate: DateTime.now(),
+                ),
+                FormBuilderDateRangePicker(
+                  name: "DateTimePicker",
+                  firstDate: DateTime(2022, 11, 04),
+                  lastDate: DateTime(2022, 12, 31),
+                  validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(
                         errorText: "this field is required"),
-
                   ]),
-                  decoration: InputDecoration(hintText: "select time picker",labelText: "date time picker"),
+                  decoration: InputDecoration(
+                      hintText: "select time picker",
+                      labelText: "date time picker"),
                   onChanged: ((value) {
                     setState(() {
-                      DateTimePicker=value.toString();
+                      DateTimePicker = value.toString();
                       print(DateTimePicker);
                     });
                   }),
-                       
-                       
-                       
-                       
-                       
-                       ),
-                      
+                ),
+
                 SizedBox(
                   height: 20,
                 ),
@@ -284,10 +291,11 @@ class _formState extends State<form> {
                           _formKey.currentState!.value["password"].toString();
                       genderselected =
                           _formKey.currentState!.value["gender"].toString();
+                      userInfo(username!, password!, genderselected!);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => demo(
+                              builder: (context) => Demo(
                                     username: username!,
                                     password: password!,
                                     gender: genderselected!,
@@ -303,4 +311,11 @@ class _formState extends State<form> {
       ),
     );
   }
+}
+
+void userInfo(String username, String password, String genderselected) async {
+  SharedPreferences userInfo = await SharedPreferences.getInstance();
+  userInfo.setStringList(
+      'UserInfo', [username, password, genderselected]);
+  print(userInfo.getStringList('userInfo'));
 }

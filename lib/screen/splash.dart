@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:spotify/demo/demo1.dart';
 import 'package:spotify/form/form%20builder.dart';
 
 class splash extends StatefulWidget {
-  const splash({super.key});
-
+  String? username;
+  String? password;
+  String? genderselected;
+  String? info;
   @override
   State<splash> createState() => _splashState();
 }
@@ -17,6 +20,22 @@ class _splashState extends State<splash> {
     // TODO: implement initState
     super.initState();
     final timer = Timer(Duration(seconds: 3), () {
+      setState(() {
+        if (widget.username == null) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => form()),
+              (route) => false);
+        } else {
+          
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => Demo(gender: '', password: '', username: '',)),
+              (route) => false);
+
+        }
+      });
+
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (context) => form()), (route) => false);
     });

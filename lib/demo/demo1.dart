@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spotify/form/form%20builder.dart';
 
 import '../models/list_model.dart';
 
-class demo extends StatefulWidget {
+class Demo extends StatefulWidget {
   String username;
   String password;
   String gender;
-  demo({required this.username, required this.password, required this.gender});
+  Demo({required this.username, required this.password, required this.gender});
 
   @override
-  State<demo> createState() => _demoState();
+  State<Demo> createState() => _DemoState();
 }
 
-class _demoState extends State<demo> {
+class _DemoState extends State<Demo> {
   int index = 0;
 
   List<HomeModel> cars = [
     HomeModel(
         name: "Afra",
-        image: AssetImage("assets/img1.jpg"),
+        image: AssetImage("img1.jpg"),
         icon: Icon(Icons.delete),
         subtitle: "I am Afra "),
     HomeModel(
         name: "Aafrin",
-        image: AssetImage("assets/img2.jpg"),
+        image: AssetImage("img2.jpg"),
         icon: Icon(Icons.delete),
         subtitle: "I am Aafrin "),
     HomeModel(
         name: "Rooban",
-        image: AssetImage("assets/img3.jpg"),
+        image: AssetImage("img3.jpg"),
         icon: Icon(Icons.delete),
         subtitle: "I am Rooban"),
   ];
@@ -173,11 +175,17 @@ class _demoState extends State<demo> {
               height: 10,
             ),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  SharedPreferences UserPrefs=await SharedPreferences.getInstance();
+                UserPrefs.remove('UserInfo');
+                 Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (context) => form()), (route) => false);
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.black12),
                 ),
                 child: Text("Sign Out")),
+                
           ],
         ),
       ),
