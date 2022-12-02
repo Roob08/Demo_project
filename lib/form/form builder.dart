@@ -292,14 +292,7 @@ class _formState extends State<form> {
                       genderselected =
                           _formKey.currentState!.value["gender"].toString();
                       userInfo(username!, password!, genderselected!);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Demo(
-                                    username: username!,
-                                    password: password!,
-                                    gender: genderselected!,
-                                  )));
+                     
                     }
                   }),
                   child: Text("Login"),
